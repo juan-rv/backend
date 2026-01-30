@@ -1,0 +1,38 @@
+{
+    "Didactica_del_Patrimonio": {
+      "Enfoque_Integral": {
+        "Definicion": "La didáctica del patrimonio busca una comprensión holística, no solo centrada en los aspectos materiales (como monumentos o bienes muebles), sino también en el patrimonio inmaterial, como tradiciones, prácticas y memoria colectiva (Monteagudo & Oliveros, 2016).",
+        "Indicadores": [
+          "El servicio educativo del museo integra tanto el patrimonio natural (especies, ecosistemas, geología, paleontología) como el patrimonio cultural inmaterial (sabiduría tradicional, folklore, historia cultural de los pueblos) en las actividades educativas.",
+          "Se busca una comprensión global y conectada entre la naturaleza y la cultura humana."
+        ]
+      },
+      "Metodologia_Constructivista": {
+        "Definicion": "Se basa en el aprendizaje por descubrimiento, donde el alumno es un agente activo en la construcción de su conocimiento. Esto implica interactuar con el patrimonio de manera directa, ya sea a través de visitas o experiencias prácticas (Polo Romero, García, & de Santos, 2014).",
+        "Indicadores": [
+          "El servicio educativo utiliza estrategias interactivas y experienciales que permiten a los estudiantes construir su propio conocimiento sobre la historia natural a través de la observación directa de exhibiciones, actividades prácticas y experimentación en el espacio del museo."
+        ]
+      },
+      "Educacion_Participativa": {
+        "Definicion": "Implica que los estudiantes no sean solo receptores de información, sino que participen activamente en el proceso de aprendizaje, promoviendo la reflexión crítica y la conexión con la realidad social y cultural (Monteagudo & Oliveros, 2016).",
+        "Indicadores": [
+          "El servicio educativo fomenta la participación activa de los estudiantes en actividades y discusiones relacionadas con la historia natural.",
+          "Esto incluye actividades en las que los estudiantes pueden formular preguntas, expresar opiniones y colaborar en la interpretación del patrimonio natural."
+        ]
+      },
+      "Interactividad_y_Uso_del_Entorno": {
+        "Definicion": "Las actividades didácticas se organizan no solo dentro del aula, sino que también incluyen salidas escolares y el uso de recursos cercanos como museos, parques y otros espacios patrimoniales, para fomentar un aprendizaje más significativo (Monteagudo & Oliveros, 2016).",
+        "Indicadores": [
+          "El museo utiliza su propio entorno (exposiciones, colecciones, instalaciones interactivas, recursos audiovisuales, etc.) de manera integral para facilitar el aprendizaje.",
+          "Se promueven actividades interactivas dentro de las exposiciones donde los estudiantes pueden participar activamente, experimentar con los objetos, y explorar el patrimonio natural de manera práctica y reflexiva."
+        ]
+      },
+      "Formacion_en_Valores_y_Conciencia_Patrimonial": {
+        "Definicion": "La didáctica del patrimonio tiene una clara intención de formar ciudadanos conscientes del valor y la necesidad de preservar el patrimonio cultural. Se enfoca en sensibilizar a los estudiantes sobre el legado cultural y su conservación para las generaciones futuras.",
+        "Indicadores": [
+          "El servicio educativo contribuye a sensibilizar a los estudiantes sobre la importancia de la conservación del medio ambiente, el respeto por los ecosistemas y la biodiversidad, y la necesidad de transmitir estos valores a las futuras generaciones."
+        ]
+      }
+    }
+  }
+  

@@ -1,0 +1,39 @@
+{
+    "Ensenanza_para_la_comprension": {
+      "Topicos_Generativos": {
+        "Definicion": "Estos pueden ser temas, conceptos o preguntas sobre conocimientos. La EpC propone lograr su conexión, significación y profundización. Los tópicos generativos deben causar curiosidad en quienes aprenden y deben integrar todas las áreas del conocimiento. Cabe aclarar que es importante evitar una gran cantidad de tópicos, porque para ser generativos deben dar tiempo suficiente para que el estudiante los explore y establezca conexiones entre sus componentes y entre unos y otros, desarrollando una verdadera comprensión. Estos tópicos deben ser centrales para un dominio o disciplina y deben ser interesantes, ligados a las experiencias y ser viables en cuanto a tiempo y posibilidades de exploración, además de ser atractivos para el educador, lo que promoverá su interés por la investigación.",
+        "Indicadores": [
+          "Los tópicos son centrales, relevantes y despiertan curiosidad.",
+          "Los estudiantes exploran los tópicos en profundidad y establecen conexiones."
+        ]
+      },
+      "Metas_de_comprension": {
+        "Definicion": "Definen de manera específica las ideas, procesos, relaciones o preguntas que los alumnos comprenderán por medio de la investigación y el aprendizaje. Para precisarlas se pueden establecer subtópicos que indiquen comprensiones más específicas hacia la mitad o al final de una unidad didáctica. Estas metas no solo guían el aprendizaje hacia una comprensión más profunda, sino que también permiten medir los avances en la comprensión y articulan los conocimientos que el educador considera esenciales para que el estudiante alcance el dominio de los tópicos generativos.",
+        "Indicadores": [
+          "Las metas de comprensión están claramente definidas y guían el proceso de aprendizajes.",
+          "Las metas permiten a los estudiantes ver el propósito de su aprendizaje y fomentar la autonomía."
+        ]
+      },
+      "Desempenos_de_comprension": {
+        "Definicion": "Son las actividades a través de los cuales los estudiantes llevan a la práctica su nivel de comprensión, pues indican actividades cognoscitivas tales como explicar, analizar, relacionar y hacer analogías. Es decir, promueven la comprensión activa, al dejar de lado la simple reproducción del conocimiento. Los desempeños de comprensión no se deben centrar en la repetición mecánica de las definiciones, sino en el desarrollo del pensamiento crítico y en la capacidad del educando para utilizar el conocimiento de forma reflexiva. Los desempeños de comprensión se desarrollan en tres etapas progresivas: *La primera es la exploración, allí el estudiante vincula sus conocimientos previos con el tópico generativo. *La segunda es una investigación guiada, en la cual los estudiantes desarrollan habilidades investigativas mientras buscan alcanzar las metas de comprensión previamente establecidas. * Finalmente se lleva a cabo la síntesis, donde los estudiantes demuestran el dominio de las metas de comprensión y aplican lo aprendido a tareas o proyectos concretos.",
+        "Indicadores": [
+          "Los estudiantes participan en actividades que promueven la comprensión activa (Analizar, comparar y relacionar).",
+          "Los desempeños están alineados con las metas de comprensión."
+        ]
+      },
+      "Evaluacion_diagnostica_continua": {
+        "Definicion": "Es un elemento crucial dentro de la EpC, pues permite realizar un seguimiento constante de los desempeños de los estudiantes en relación con las metas de comprensión. Es continua, pues los estudiantes reciben retroalimentación constante sobre sus desempeños y resulta ser a la vez un motor que impulsa el aprendizaje. Esta evaluación tiene como objetivo identificar problemas en la comprensión y promover la reflexión del estudiante sobre su aprendizaje. Hacer públicos los criterios de evaluación al inicio de un programa no siempre es beneficioso, ya que estos criterios pueden ajustarse a medida que se identifican fortalezas y debilidades en el desempeño de los educandos. Además, este ajuste de los criterios debe realizarse de manera colaborativa entre el educador y el educando, lo que fomenta un mayor grado de comprensión a medida que avanza el proceso educativo.",
+        "Indicadores": [
+          "Se realiza la evaluación continua que fomenta la retroalimentación constante.",
+          "La evaluación permite ajustar las metas según las necesidades del educando."
+        ]
+      },
+      "Reflexion": {
+        "Indicadores": [
+          "Los estudiantes reflexionan sobre su proceso de aprendizaje.",
+          "Se promueve el desarrollo del conocimiento a otros contextos."
+        ]
+      }
+    }
+  }
+  

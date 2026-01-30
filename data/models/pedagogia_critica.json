@@ -1,0 +1,31 @@
+{
+    "Pedagogia_critica": {
+      "Titulo": "Pedagogía Crítica",
+  
+      "Participacion_Social": {
+        "Definicion": "La pedagogía crítica promueve la participación activa y reflexiva de todos los miembros de la comunidad educativa. Se subraya la responsabilidad colectiva hacia el futuro de la comunidad, invitando a los educandos a involucrarse de manera crítica en el proceso social y educativo. Este concepto también se vincula con el fortalecimiento del pensamiento democrático para abordar y resolver los problemas que enfrenta la sociedad (Ramírez 2008).",
+        "Indicador": "Existe un nivel de involucramiento de los visitantes en las actividades, como la cantidad de preguntas y comentarios, el grado de reflexión activa y el seguimiento de acciones propuestas por el museo."
+      },
+      
+      "Comunicacion_Horizontal": {
+        "Definicion": "En este modelo pedagógico, la comunicación entre educadores y educandos debe ser horizontal, promoviendo el intercambio y la validación de los discursos de todas las partes involucradas. Esto se opone a las estructuras de poder tradicionales, donde solo los educadores tienen autoridad sobre el conocimiento. La pedagogía crítica busca fomentar una comunicación en la que todos los actores sean escuchados y validados.",
+        "Indicador": "Hay una constante interacción entre educadores y visitantes, analizando si el diálogo es inclusivo y los visitantes tienen oportunidades para compartir sus propias ideas."
+      },
+      
+      "Significado_de_los_Imaginarios_Simbolicos": {
+        "Definicion": "Este aspecto de la pedagogía crítica hace énfasis en la importancia de desentrañar los significados que subyacen a las construcciones sociales e ideológicas. Los educandos son invitados a cuestionar los imaginarios impuestos por las estructuras de poder, a través de un análisis crítico de los valores y creencias que configuran la cultura dominante (Ramírez 2008).",
+        "Indicador": "Las actividades ofrecen varias perspectivas sobre un tema logrando el cuestionamiento y la reflexión en los visitantes."
+      },
+  
+      "Humanizacion_de_los_Procesos_Educativos": {
+        "Definicion": "La pedagogía crítica entiende la educación como un proceso integral que no solo se limita al desarrollo cognitivo, sino que también involucra el desarrollo emocional, social y ético. Se busca que los educandos se conecten de manera crítica con la realidad, desarrollando su autonomía y capacidad para transformar el entorno social (Ramírez 2008).",
+        "Indicador": "Las actividades permiten expresar si los visitantes se sienten emocionalmente conectados con el tema tratado y si hay un desarrollo reflexivo y empático respecto a las situaciones presentadas."
+      },
+  
+      "Contextualizacion_del_Proceso_Educativo": {
+        "Definicion": "En este enfoque pedagógico, la enseñanza debe estar contextualizada, lo que implica que se debe tomar en cuenta la realidad sociocultural de los educandos. No se busca aplicar un modelo educativo universal, sino uno que se adapte a las circunstancias específicas de cada comunidad, permitiendo que los estudiantes se enfrenten de manera crítica y consciente a los problemas de su entorno (Ramírez 2008).",
+        "Indicador": "Las actividades están adaptadas a los contextos específicos de los visitantes y si fomentan una conexión entre el conocimiento y la acción en sus comunidades."
+      }
+    }
+  }
+  

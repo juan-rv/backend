@@ -1,0 +1,39 @@
+{
+    "Indagacion_cientifica": {
+      "Focalizacion": {
+        "Definicion": "En esta primera fase, el educador realiza una evaluación diagnóstica para identificar los aprendizajes previos de los estudiantes. Esto permite establecer una base sólida sobre la cual se construirán nuevos conceptos. Es fundamental que el diagnóstico sea preciso, ya que de él depende el diseño de actividades adecuadas para fomentar un ambiente de aprendizaje que promueva el pensamiento crítico y creativo.",
+        "Indicadores": [
+          "El educador identifica los aprendizajes previos y adapta los contenidos.",
+          "Los educandos plantean preguntas investigativas sobre el fenómeno."
+        ]
+      },
+      "Exploracion": {
+        "Definicion": "En esta fase, los estudiantes se organizan en grupos de trabajo colaborativo y elaboran hipótesis. La hipótesis debe permitir el reconocimiento de las variables que describen el fenómeno que se está investigando, así como el diseño del método más adecuado para comprobar el interrogante. Durante esta fase, los estudiantes también discuten los posibles resultados o conclusiones que obtendrán al final de la indagación.",
+        "Indicadores": [
+          "Los educandos elaboran hipótesis colaborativamente.",
+          "Los estudiantes utilizan tecnología y matemáticas para recopilar datos."
+        ]
+      },
+      "Reflexion_y_analisis": {
+        "Definicion": "Una vez aplicados los métodos de investigación, se procede a realizar una comparación entre los resultados obtenidos y las predicciones realizadas en la fase anterior. Esta etapa de reflexión permite a los estudiantes construir su aprendizaje a partir de los resultados obtenidos mediante el proceso de indagación.",
+        "Indicadores": [
+          "Los educandos reflexionan sobre los resultados obtenidos y los comparan con sus hipótesis.",
+          "Se fomenta el análisis crítico de los resultados."
+        ]
+      },
+      "Aplicacion_y_generalizacion": {
+        "Definicion": "En la última fase, los estudiantes aplican el conocimientos construidos durante el proceso de indagación. Replican sus nuevas ideas mediante modelos o situaciones similares e incluso formulan nuevas preguntas a partir de lo aprendido. A través de esta fase, los estudiantes desarrollan una competencia de pensamiento científico que no solo les permite resolver problemas, sino también generar nuevas ideas con un enfoque crítico y creativo.",
+        "Indicadores": [
+          "Los educandos aplican lo aprendido en nuevos contextos o plantean nuevas preguntas.",
+          "Se fomenta la generación de nuevas ideas y soluciones basadas en los resultados."
+        ]
+      },
+      "Trabajo_Colaborativo": {
+        "Indicadores": [
+          "Se fomenta el trabajo en equipo en cada fase de la indagación.",
+          "Los estudiantes colaboran en la discusión de ideas y soluciones."
+        ]
+      }
+    }
+  }
+  

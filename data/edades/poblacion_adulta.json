@@ -1,0 +1,20 @@
+{
+  "adulta": {
+    "19-29": {
+      "etapa_cognitiva": "Objetiva",
+      "caracteristicas": "Los adultos jóvenes ya no adquieren conocimiento solo para utilizarlo, sino que emplean lo que saben para conseguir objetivos como formarse, profesionalizarse o resolver problemas prácticos de la vida cotidiana."
+    },
+    "30-40": {
+      "etapa_cognitiva": "Ejecutiva",
+      "caracteristicas": "Las personas situadas en la etapa ejecutiva, que puede coincidir con las etapas de logro y responsabilidad. Los individuos son responsables en su vinculación con sistemas sociales, como los negocios, organizaciones, movimientos sociales u otros."
+    },
+    "39-61": {
+      "etapa_cognitiva": "Responsabilidad",
+      "caracteristicas": "Las personas de edad mediana emplean la mente para resolver problemas prácticos asociados a las responsabilidades de su entorno."
+    },
+    "61_en_adelante": {
+      "etapa_cognitiva": "Reorganizadora / Reintegradora / Legado",
+      "caracteristicas": "Las personas se jubilan reorganizan sus vidas y las energías intelectuales se dirigen hacia actividades significativas que reemplazan el trabajo pagado. Los adultos mayores, que pueden haberse apartado del mundo social y que funcionan con rendimiento cognitivo limitado por cambios biológicos, con frecuencia son más selectivos de las tareas a las que dedicarán sus esfuerzos."
+    }
+  }
+}

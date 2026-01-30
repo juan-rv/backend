@@ -1,0 +1,19 @@
+{
+  "joven": {
+    "2-7": {
+      "grados": ["Pre jardín", "Jardín"],
+      "etapa_cognitiva": "Pre operacional",
+      "caracteristicas": "El niño puede usar símbolos y palabras para pensar. Solución intuitiva de los problemas, pero el pensamiento está limitado por la rigidez, la centralización y el egocentrismo."
+    },
+    "7-11": {
+      "grados": ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"],
+      "etapa_cognitiva": "Operaciones concretas",
+      "caracteristicas": "El niño aprende las operaciones lógicas de seriación, clasificación y de conservación. El pensamiento está ligado a los fenómenos y objetos del mundo real."
+    },
+    "11-12_en_adelante": {
+      "grados": ["Sexto", "Séptimo", "Octavo", "Noveno", "Décimo", "Undécimo"],
+      "etapa_cognitiva": "Operaciones formales",
+      "caracteristicas": "El niño aprende sistemas abstractos del pensamiento que le permiten usar la lógica proposicional, el razonamiento científico y el razonamiento proporcional."
+    }
+  }
+}
