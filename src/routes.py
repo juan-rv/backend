@@ -34,69 +34,32 @@ def evaluar_apartado_route():
 # ============================================================================
 
 def analizar_taller_completo_route():
-    """
-    Analiza resultados previos de evaluación de un taller completo
-    """
-    data = request.json
+    payload = request.json
+    if not payload:
+        return jsonify({"error": "No hay datos"}), 400
+
+    # Extraemos las evaluaciones
+    evaluaciones = payload.get('evaluaciones', payload)
+    rango_edad = payload.get('rango_edad', 'Población general')
+
+    # --- DEBUG: Esto te mostrará en la terminal qué llaves están llegando ---
+    print(f"DEBUG - Llaves recibidas: {list(evaluaciones.keys())}")
+
+    # VALIDACIÓN FLEXIBLE:
+    # Buscamos si existe alguna llave que contenga la palabra "objetivo" (sin importar mayúsculas)
+    llave_objetivo = next((k for k in evaluaciones.keys() if "objetivo" in k.lower()), None)
     
-    # Validar que hay datos
-    if not data:
+    if not llave_objetivo:
+        # Si llegamos aquí, es porque realmente no hay nada que se parezca a un objetivo
         return jsonify({
-            "error": "No se proporcionaron datos",
-            "detalle": "El cuerpo de la solicitud debe contener los resultados de evaluación"
+            "error": "Faltan datos",
+            "detalle": f"No se encontró el apartado de Objetivo. Recibido: {list(evaluaciones.keys())}"
         }), 400
-    
-    # Validar estructura mínima (necesitamos al menos objetivo según tu función)
-    if not data.get('objetivo'):
-        return jsonify({
-            "error": "Se requiere al menos el resultado del objetivo",
-            "estructura_esperada": {
-                "introduccion": {
-                    "analisis_disciplinar": "...", 
-                    "frases_discurso": []
-                },
-                "objetivo": {
-                    "apartado": "...", 
-                    "estadisticas": {
-                        "promedio": 0.0,
-                        "total_indicadores": 0
-                    }, 
-                    "evaluaciones": []
-                },
-                "actividades": [
-                    {
-                        "apartado": "...", 
-                        "estadisticas": {
-                            "promedio": 0.0,
-                            "total_indicadores": 0
-                        }
-                    }
-                ]
-            }
-        }), 400
-    
+
     try:
-        # Llamar a tu función de análisis integrado
-        analisis = analizar_resultados_taller(data)
-        
-        # Si la función retorna error por datos insuficientes
-        if "error" in analisis:
-            return jsonify(analisis), 400
-        
-        # Añadir metadatos a la respuesta
-        if isinstance(analisis, dict):
-            analisis["metadata"] = {
-                "endpoint": "/analizar_taller_completo",
-                "componentes_recibidos": list(data.keys())
-            }
-            
+        # Si pasó la validación, llamamos a la lógica
+        analisis = analizar_resultados_taller(evaluaciones, rango_edad)
         return jsonify(analisis), 200
-        
     except Exception as e:
-        # Log del error
-        print(f"❌ Error en analizar_taller_completo: {str(e)}")
-        
-        return jsonify({
-            "error": "Error interno del servidor al analizar el taller",
-            "detalle": str(e)
-        }), 500
+        print(f"❌ Error crítico: {str(e)}")
+        return jsonify({"error": str(e)}), 500

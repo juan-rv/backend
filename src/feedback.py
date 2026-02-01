@@ -1,24 +1,54 @@
 import json
-import openai  # ← Solo importar openai, NO OpenAI
+import openai
 import os
+import time
 from dotenv import load_dotenv
 
-# --- CONFIGURACIÓN (CÓDIGO EXISTENTE - MODIFICAR) ---
+# --- CONFIGURACIÓN ---
 load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 api_key = os.getenv("KEY03")
 
-# Configurar openai para Groq (v0.28.1) - SIN crear 'client'
+# Configurar openai para Groq
 openai.api_key = api_key
 openai.api_base = "https://api.groq.com/openai/v1"
 
 print(f"✅ OpenAI configurado para feedback. Base URL: {openai.api_base}")
 
-# --- EL RESTO DEL CÓDIGO PERMANECE IGUAL ---
+# --- HELPER: LLAMADA SEGURA (VERSIÓN ROBUSTA) ---
+def llamada_segura_feedback(messages, model="llama-3.1-8b-instant", temperature=0.2, retries=5):
+    """
+    Intenta llamar a Groq manejando Rate Limits con una espera agresiva.
+    Garantiza cubrir >60 segundos para reiniciar la ventana de tokens.
+    """
+    for i in range(retries):
+        try:
+            comp = openai.ChatCompletion.create(
+                model=model,
+                messages=messages,
+                temperature=temperature,
+                response_format={"type": "json_object"}
+            )
+            return comp
+        except openai.error.RateLimitError:
+            # Espera agresiva: 10s, 20s, 30s, 40s, 50s
+            # Esto permite "sobrevivir" al bloqueo de 1 minuto de Groq
+            wait_time = (i + 1) * 10 
+            print(f"⚠️ Rate Limit en Feedback (Intento {i+1}/{retries}). Pausando {wait_time}s para liberar cupo...")
+            time.sleep(wait_time)
+        except Exception as e:
+            print(f"❌ Error desconocido en Feedback: {str(e)}")
+            return None
+    
+    print("❌ Se agotaron los reintentos (incluso tras esperar >2 min).")
+    return None
+
+# --- FUNCIONES PRINCIPALES ---
+
 def generar_comentario_global(objetivo, evaluaciones, perfil_edad, tipo="objetivo"):
     """
     Genera un análisis cualitativo (Pros/Contras) sin dar órdenes directas.
-    tipo: "objetivo" o "actividad" - para adaptar el prompt
+    Maneja reintentos robustos.
     """
     # Filtramos los puntos débiles (Notas 1, 2 y 3)
     puntos_debiles = [
@@ -26,7 +56,7 @@ def generar_comentario_global(objetivo, evaluaciones, perfil_edad, tipo="objetiv
         for ev in evaluaciones if ev['calificacion'] <= 3
     ]
     
-    # Si todo es perfecto
+    # Construcción del prompt
     if not puntos_debiles:
         if tipo == "actividad":
             prompt_feedback = f'''
@@ -41,130 +71,109 @@ def generar_comentario_global(objetivo, evaluaciones, perfil_edad, tipo="objetiv
             Responde en JSON: {{"comentario_general": "..."}}
             '''
     else:
-        # Si hay brechas, hacemos un análisis observacional
         txt_debiles = "\n".join(puntos_debiles)
         
         if tipo == "actividad":
             prompt_feedback = f'''
-            ACTÚA COMO UN DISEÑADOR INSTRUCCIONAL REFLEXIVO.
-            Tu tono debe ser OBSERVACIONAL y CONSULTIVO, nunca imperativo. 
-            No le digas al usuario qué hacer (evita "cambia", "agrega", "debes").
-            En su lugar, señala las características observadas en la ACTIVIDAD.
+            ACTÚA COMO UN EXPERTO EN PEDAGOGÍA CONSTRUCTIVISTA. 
+            Analiza con rigor técnico y claridad la actividad: "{objetivo[:300]}..." 
+            Destinatarios: {perfil_edad}
+            Hallazgos técnicos detectados: {txt_debiles}
 
-            DATOS A ANALIZAR:
-            - Actividad: "{objetivo[:300]}..."
-            - Etapa Cognitiva: {perfil_edad}
-            - Brechas detectadas: {txt_debiles}
-
-            TU TAREA:
-            Redactar un único análisis integrado que cubra tres dimensiones ESPECÍFICAS PARA ACTIVIDADES:
-            1. FORTALEZAS COMO ESTRATEGIA: Qué valor tiene esta actividad como método de enseñanza en relación con el modelo pedagógico y la edad.
-            2. BRECHAS EN IMPLEMENTACIÓN: Observación sobre aspectos que podrían mejorarse en el diseño o ejecución de la actividad.
-            3. OPORTUNIDAD PEDAGÓGICA: Qué valor educativo se ganaría si se optimizaran estos aspectos en la actividad.
+            GUÍA DE ESTILO Y REDACCIÓN (ESTRICTO):
+            1. TONO: Firme, profesional y propositivo. Elimina verbos de duda como "parece", "podría" o "tal vez". Sé asertivo.
+            2. SIN ETIQUETAS: Está prohibido usar encabezados, listas, viñetas o títulos como "Fortalezas" o "Oportunidades".
+            3. ESTRUCTURA DE DOS PÁRRAFOS:
+               - Párrafo 1: Valora la elección de la metodología o los recursos (ej. uso de objetos concretos) y explica por qué son efectivos para la psicología de {perfil_edad}.
+               - Párrafo 2: Identifica el riesgo pedagógico de los hallazgos técnicos (notas bajas) y sugiere una evolución específica. No solo digas qué falta, di cómo implementarlo para elevar la calidad.
+            4. ECONOMÍA DEL LENGUAJE: No repitas ideas. Si mencionas un ajuste, no vuelvas a él. Evita muletillas de relleno y no menciones el tema del taller más de una vez.
 
             FORMATO JSON DE RESPUESTA:
             {{
-                "comentario_general": "FORTALEZAS COMO ESTRATEGIA: [Texto]. BRECHAS EN IMPLEMENTACIÓN: [Texto analítico sobre modelo y edad]. OPORTUNIDAD PEDAGÓGICA: [Texto]."
+                "comentario_general": "[Tu análisis fluido aquí, separando los dos párrafos con \\n\\n]"
             }}
             '''
         else:
             prompt_feedback = f'''
-            ACTÚA COMO UN ANALISTA PEDAGÓGICO REFLEXIVO.
-            Tu tono debe ser OBSERVACIONAL y CONSULTIVO, nunca imperativo. 
-            No le digas al usuario qué hacer (evita "cambia", "agrega", "debes").
-            En su lugar, señala las características observadas.
+            ACTÚA COMO UN EXPERTO EN PEDAGOGÍA.
+            Analiza la estructura técnica del siguiente contenido para la audiencia: {perfil_edad}.
 
-            DATOS A ANALIZAR:
-            - Objetivo: "{objetivo}"
-            - Etapa Cognitiva: {perfil_edad}
-            - Brechas detectadas: {txt_debiles}
+            DATOS:
+            - Texto original: "{objetivo}"
+            - Hallazgos técnicos: {txt_debiles}
 
-            TU TAREA:
-            Redactar un único análisis integrado que cubra tres dimensiones:
-            1. FORTALEZAS (Pros): Qué valor tiene la temática o la intención del objetivo en relación con el modelo pedagógico y la edad.
-            2. BRECHAS (Contras): Observación sobre la desconexión con el Modelo Pedagógico y la Edad. Explica la "Razón Pedagógica" de la brecha.
-            3. OPORTUNIDAD: Qué valor pedagógico se ganaría si se alinearan estos aspectos.
+            INSTRUCCIONES DE ESTILO (CRÍTICO):
+            1. REDACCIÓN: Escribe un único texto narrativo y fluido de dos párrafos. 
+            2. PROHIBICIONES: 
+               - NO uses títulos, encabezados ni etiquetas como "LO QUE FUNCIONA" o "FORTALEZAS".
+               - NO uses listas con viñetas o guiones.
+               - NO repitas el tema del taller como muletilla.
+            3. ESTRUCTURA DEL TEXTO:
+               - Párrafo 1: Analiza la propuesta desde la intención pedagógica y su valor para {perfil_edad}.
+               - Párrafo 2: Integra los hallazgos técnicos (notas bajas) como recomendaciones de mejora profesional, explicando QUÉ falta técnicamente (ej. falta de criterios, objetivos difusos, etc.).
 
             FORMATO JSON DE RESPUESTA:
             {{
-                "comentario_general": "FORTALEZAS: [Texto]. BRECHAS OBSERVADAS: [Texto analítico sobre modelo y edad]. OPORTUNIDAD: [Texto]."
+                "comentario_general": "[Inserta aquí solo el texto fluido, usando \\n\\n entre párrafos]"
             }}
             '''
+    # Usamos la llamada segura
+    print("⏳ Generando feedback global (esto puede tardar si hay congestión)...")
+    comp = llamada_segura_feedback(
+        messages=[{"role": "user", "content": prompt_feedback}],
+        temperature=0.1,
+        retries=5 # Aseguramos 5 intentos
+    )
 
-    try:
-        comp = openai.ChatCompletion.create(
-            model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": prompt_feedback}],
-            temperature=0.2, 
-            response_format={"type": "json_object"}
-        )
-        return json.loads(comp.choices[0].message.content)
-    except Exception as e:
-        return {"comentario_general": "No se pudo generar el análisis global."}
+    if comp:
+        try:
+            return json.loads(comp.choices[0].message.content)
+        except Exception as e:
+            return {"comentario_general": f"Error procesando JSON: {str(e)}"}
+    else:
+        return {"comentario_general": "No se pudo generar el análisis global (Rate Limit persistente)."}
 
-# --- NUEVA FUNCIÓN ESPECÍFICA PARA ACTIVIDADES (AÑADIR) ---
 def generar_comentario_actividad(actividad, evaluaciones, perfil_edad):
     """
-    Genera feedback específico para actividades educativas.
-    Versión alternativa a generar_comentario_global() pero solo para actividades.
+    Versión alternativa para actividades.
     """
-    # Filtramos los puntos débiles (Notas 1, 2 y 3)
     puntos_debiles = [
         f"- {ev['indicador']} ({ev['calificacion']}/5): {ev['analisis'].get('razonamiento', '')}"
         for ev in evaluaciones if ev['calificacion'] <= 3
     ]
     
-    # Si todo es perfecto
     if not puntos_debiles:
         prompt_feedback = f'''
-        La actividad "{actividad[:200]}..." muestra un diseño pedagógico excelente para {perfil_edad}.
-        
-        Como especialista en diseño instruccional, redacta un comentario breve que destaque:
-        - Su valor como estrategia de enseñanza
-        - Su adecuación a la edad de los estudiantes
-        - Su potencial para promover aprendizaje significativo
-        
+        La actividad "{actividad[:200]}..." es excelente para {perfil_edad}.
+        Redacta comentario positivo breve.
         Responde en JSON: {{"comentario_general": "..."}}
         '''
     else:
-        # Si hay aspectos a mejorar
         txt_debiles = "\n".join(puntos_debiles)
-        
         prompt_feedback = f'''
-        ACTÚA COMO UN EXPERTO EN DISEÑO DE ACTIVIDADES EDUCATIVAS.
+        ACTÚA COMO UN EXPERTO EN DISEÑO DE ACTIVIDADES.
+        ANALIZA: "{actividad[:300]}..." para {perfil_edad}.
+        MEJORAR: {txt_debiles}
         
-        ANALIZA ESTA ACTIVIDAD:
-        - Descripción: "{actividad[:300]}..."
-        - Para estudiantes de: {perfil_edad}
-        - Aspectos identificados para mejorar: {txt_debiles}
+        GENERAR FEEDBACK (Valor, Optimización, Recomendaciones).
         
-        PROPORCIONA UN ANÁLISIS CONSTRUCTIVO EN 3 PARTES:
-        
-        1. VALOR INTRÍNSECO DE LA ACTIVIDAD:
-           ¿Qué aspectos positivos tiene como estrategia educativa?
-           ¿Cómo se relaciona con buenas prácticas pedagógicas?
-        
-        2. ÁREAS DE OPTIMIZACIÓN:
-           ¿Qué elementos del diseño podrían mejorarse?
-           ¿Cómo afecta esto la experiencia de aprendizaje?
-        
-        3. RECOMENDACIONES PARA EL DISEÑO:
-           ¿Qué ajustes sugerirías para maximizar su impacto pedagógico?
-           ¿Cómo podría convertirse en una actividad aún más efectiva?
-        
-        FORMATO DE RESPUESTA (JSON):
+        FORMATO JSON:
         {{
-            "comentario_general": "VALOR INTRÍNSECO: [texto]. ÁREAS DE OPTIMIZACIÓN: [texto]. RECOMENDACIONES PARA EL DISEÑO: [texto]."
+            "comentario_general": "VALOR: [...]. OPTIMIZACIÓN: [...]. RECOMENDACIONES: [...]."
         }}
         '''
     
-    try:
-        comp = openai.ChatCompletion.create(
-            model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": prompt_feedback}],
-            temperature=0.2,
-            response_format={"type": "json_object"}
-        )
-        return json.loads(comp.choices[0].message.content)
-    except Exception as e:
-        return {"comentario_general": f"No se pudo generar feedback para actividad: {str(e)}"}
+    print("⏳ Generando feedback de actividad...")
+    comp = llamada_segura_feedback(
+        messages=[{"role": "user", "content": prompt_feedback}],
+        temperature=0.2,
+        retries=5
+    )
+    
+    if comp:
+        try:
+            return json.loads(comp.choices[0].message.content)
+        except Exception as e:
+            return {"comentario_general": f"Error JSON actividad: {str(e)}"}
+    else:
+        return {"comentario_general": "No se pudo generar feedback de actividad."}
